@@ -9,13 +9,6 @@
         "com.unity.visualscripting": "1.7.8"
       }
     },
-    "com.seaube.unity-wasm": {
-      "version": "https://github.com/seaube/unity-wasm.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "38ebddd90e653bf3cc3cf03aac2a569f059e935d"
-    },
     "com.unity.2d.animation": {
       "version": "7.0.6",
       "depth": 1,
