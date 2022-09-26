@@ -1,0 +1,42 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+load("@emsdk//emscripten_toolchain:wasm_rules.bzl", "wasm_cc_binary")
+
+package(default_visibility = ["//visibility:public"])
+
+_SYSTEMS = {
+    "UseExample": {"deps": []},
+}
+
+[cc_binary(
+    name = "{}__Impl".format(name),
+    srcs = [
+        "{}.cc".format(name),
+        "//:runtime__private_srcs",
+    ],
+    features = [
+        "wasm_standalone",
+        "wasm_no_entry",
+        "-wasm_warnings_as_errors",
+        "-wasm_error_on_undefined_symbols",
+        "-exceptions",
+    ],
+    linkshared = True,
+    tags = ["manual"],
+    deps = _SYSTEMS[name]["deps"] + [
+        "//:runtime__public_cc",
+        "@ecsact//lib/runtime/dynamic",
+    ],
+) for name in _SYSTEMS]
+
+[wasm_cc_binary(
+    name = name,
+    backend = "llvm",
+    cc_target = ":{}__Impl".format(name),
+    exported_functions = ["_example__{}".format(name)],
+    outputs = ["{}.wasm".format(name)],
+) for name in _SYSTEMS]
+
+filegroup(
+    name = "EcsactSystems",
+    srcs = [name for name in _SYSTEMS],
+)

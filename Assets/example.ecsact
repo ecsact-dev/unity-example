@@ -1,0 +1,134 @@
+main package example;
+
+//BASIC EXAMPLES
+
+component Example {
+	int32 example_value;
+}
+
+component ToBeRemoved{}
+
+system AddToExample {
+	required Example;
+	removes ToBeRemoved;
+}
+component CanMove {}
+
+// MOVE SYSTEMS
+
+component VerticalMoving {
+	decimal32 value;
+}
+
+component HorizontalMoving {
+	decimal32 value;
+}
+
+component Velocity {
+	decimal32 x_value;
+	decimal32 y_value;
+	decimal32 force;
+}
+
+action StartVerticalMove {
+	decimal32 y_change;
+	include CanMove;
+	include Position;
+	adds VerticalMoving;
+}
+
+action StopVerticalMove {
+	include CanMove;
+	include Position;
+	removes VerticalMoving;
+}
+
+action StartHorizontalMove {
+	decimal32 x_change;
+	include CanMove;
+	include Position;
+	adds HorizontalMoving;
+}
+
+action StopHorizontalMove {
+	include CanMove;
+	include Position;
+	removes HorizontalMoving;
+}
+
+component Position {
+	decimal32 x;
+	decimal32 y;
+	decimal32 prev_x;
+	decimal32 prev_y;
+}
+
+// BASIC COLLISION
+
+component Collider {
+	int32 x_radius;
+	int32 y_radius;
+}
+
+system UpdateVerticalVelocity {
+	include Position;
+	required Velocity;
+	required VerticalMoving;
+}
+
+system UpdateHorizontalVelocity {
+	include Position;
+	required Velocity;
+	required HorizontalMoving;
+}
+
+system {
+	required readonly Position;
+	required readonly Collider;
+	system CheckCollision {
+		required Position;
+		required Velocity;
+		required Collider;
+	}
+}
+
+system UpdatePosition {
+	required Position;
+	required Velocity;
+}
+
+// GENERATOR
+component Block{}
+
+component BlockGenerator{
+	// Fake value added because of https://github.com/seaube/ecsact/issues/171
+	int32 fake_value;
+}
+
+component QueueBlock{
+	int32 pos_x;
+	int32 pos_y;
+}
+
+action PerformGenerateBlock {
+	int32 pos_x;
+	int32 pos_y;
+	include BlockGenerator;
+	adds QueueBlock; 
+}
+
+system GenerateBlock {
+	required BlockGenerator;
+	required QueueBlock;
+	generates {
+		required CanMove;
+		required Block;
+		required Position;
+		required Collider;
+		required Velocity;
+	}
+}
+
+system {
+	removes QueueBlock;
+}
