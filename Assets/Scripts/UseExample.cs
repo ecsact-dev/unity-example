@@ -10,31 +10,26 @@ public class UseExample : MonoBehaviour
     int entityId;
     System.Action action;
     
-    void Start()
-    {
+    void Start() {
         // Create an instance of the Ecsact Runtime
         runtime = EcsactRuntime.GetOrLoadDefault();
 
-        // Example 1
-        // Create a Registry from the instance
-        //var registry = runtime.core.CreateRegistry("exampleReg");
-        // Create an entity from the registry 
-        //runtime.core.CreateEntity(registry);
-
-        // Example 2 
-        // Use a Default Registry
+        // Get the Default Registry
         runner = FindObjectOfType<Ecsact.DefaultFixedRunner>();
         // Create an entity using the runner's registry id
         entityId = runtime.core.CreateEntity(runner.registryId);
 
+        // Callback that's invoked on component update
         runtime.OnUpdateComponent<example.Example>((entity, Component) => {
-            // Debug.Log("update");
+            Debug.Log("Example Updated");
         });
 
+        // Callback that's invoked on the removal of the component
         action = runtime.OnRemoveComponent<example.ToBeRemoved>((entity, component) => {
-            Debug.Log("removed");
+            Debug.Log("Example compoent Removed");
         });
 
+        // Declare an Example component type
         var exampleComponent = new example.Example {
             example_value = 5,
         };
@@ -59,7 +54,7 @@ public class UseExample : MonoBehaviour
             entityId
         );
 
-        Debug.Log("Setting AddToExampleSystem");
+        //Add system implementation for our AddToExample system from .ecsact
         runtime.dynamic.SetSystemExecutionImpl<example.AddToExample>(ctx => {
             AddToExampleSystem(ctx);
         });
@@ -69,24 +64,27 @@ public class UseExample : MonoBehaviour
         ( EcsactRuntime.SystemExecutionContext context
         )
     {
+        // Get a component from the context
         var value = context.Get<example.Example>();
         
+        //Modify and update its value
         value.example_value +=1;
         context.Update<example.Example>(value);
 
         if(value.example_value >= 300) {
+            // Remove the component from the context
             context.Remove<example.ToBeRemoved>();
         }
     }
 
     void FixedUpdate() {
+        // Get the component to log its value
         var component = runtime.core.GetComponent<example.Example>(
             runner.registryId,
             entityId
         );
 
-        //Debug.Log(component.example_value);
-
+        Debug.Log(component.example_value);
     }
     void OnDestroy() {
         action();
