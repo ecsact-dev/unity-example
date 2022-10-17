@@ -14,21 +14,6 @@ public class SyncMove
 {
     Ecsact.DefaultFixedRunner runner;
     EcsactRuntime rt;
-    
-    private PlayerInput playerInput;
-
-    private InputAction verticalMoveAction;
-    private InputAction horizontalMoveAction;
-
-    example.StartVerticalMove startVerticalMoveAction;
-    example.StopVerticalMove stopVerticalMoveAction;
-
-    example.Position position;
-    
-    example.StartHorizontalMove startHorizontalMoveAction;
-    example.StopHorizontalMove stopHorizontalMoveAction;
-
-    EcsactRuntime.ExecutionOptions executionOptions;
 
     public void OnInitComponent(in example.Position position) {
         gameObject.transform.position = new Vector3(position.x, position.y, 0);

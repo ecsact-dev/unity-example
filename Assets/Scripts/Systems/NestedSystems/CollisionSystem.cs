@@ -4,18 +4,8 @@ using UnityEngine;
 
 public class CollisionSystem : MonoBehaviour {
 
-	EcsactRuntime rt;
-
-	[RuntimeInitializeOnLoadMethod]
-	static void SetCollisionSystems() {
-		var rt = EcsactRuntime.GetOrLoadDefault();
-
-		rt.dynamic.SetSystemExecutionImpl<example.CheckCollision>((ctx) => {
-			CheckCollision(ctx);
-		});
-	}
-
-	internal static void CheckCollision
+	[Ecsact.DefaultSystemImpl(typeof(example.CheckCollision))]
+	public static void CheckCollision
 		( EcsactRuntime.SystemExecutionContext context
 		)
 	{

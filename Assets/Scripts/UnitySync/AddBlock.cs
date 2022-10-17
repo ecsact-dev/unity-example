@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AddBlock 
     : MonoBehaviour
+    , Ecsact.UnitySync.IRequired<example.Position>
+    , Ecsact.UnitySync.IRequired<example.Block>
     , Ecsact.UnitySync.IOnInitComponent<example.Block>
     , Ecsact.UnitySync.IOnInitComponent<example.Position>
 {

@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06d71d460aeb804fa9b6550d0ff0218, type: 3}
   m_Name: EcsactRuntimeSettings
   m_EditorClassIdentifier: 
-  useAsyncRunner: 0
   useVisualScriptingEvents: 1
-  defaultRegistries:
-  - pool: {fileID: 0}
-    registryName: ExampleReg
+  defaultRegistry:
+    registryName: Default Registry
     runner: 2
-  useUnitySync: 1
+  enableUnitySync: 1
   unitySyncScripts:
-  - AddBlock
-  - SyncMove
+  - scriptEnabled: 1
+    scriptAssemblyQualifiedName: AddBlock, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - scriptEnabled: 1
+    scriptAssemblyQualifiedName: SyncMove, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  defaultCsharpSystemImplsAssemblyName: ExampleAssembly
   runtimeLibraryPaths:
-  - Assets/Plugins/EcsactRuntime.dll
+  - Assets/Plugins/EcsactRuntime

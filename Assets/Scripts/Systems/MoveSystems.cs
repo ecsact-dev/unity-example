@@ -3,40 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveSystems : MonoBehaviour {
-    [RuntimeInitializeOnLoadMethod]
-    static void SetMoveSystems() {
-        var rt = EcsactRuntime.GetOrLoadDefault();
 
-        rt.dynamic.SetSystemExecutionImpl<example.UpdatePosition>(ctx => {
-            UpdatePosition(ctx);
-        });
-
-        rt.dynamic.SetActionExecutionImpl<example.StartVerticalMove>(ctx => {
-            StartVerticalMove(ctx);
-        }); 
-
-        rt.dynamic.SetActionExecutionImpl<example.StopVerticalMove>(ctx => {
-            StopVerticalMove(ctx);
-        });
-
-        rt.dynamic.SetActionExecutionImpl<example.StartHorizontalMove>(ctx => {
-            StartHorizontalMove(ctx);
-        }); 
-
-        rt.dynamic.SetActionExecutionImpl<example.StopHorizontalMove>(ctx => {
-            StopHorizontalMove(ctx);
-        });
-
-        rt.dynamic.SetSystemExecutionImpl<example.UpdateVerticalVelocity>(ctx => {
-            UpdateVerticalVelocity(ctx);
-        });
-
-        rt.dynamic.SetSystemExecutionImpl<example.UpdateHorizontalVelocity>(ctx => {
-            UpdateHorizontalVelocity(ctx);
-        });
-    }
-
-    internal static void UpdatePosition
+    [Ecsact.DefaultSystemImpl(typeof(example.UpdatePosition))]
+    public static void UpdatePosition
         ( EcsactRuntime.SystemExecutionContext context
         )
     {
@@ -53,7 +22,8 @@ public class MoveSystems : MonoBehaviour {
         context.Update<example.Position>(position);
     }
 
-    internal static void UpdateVerticalVelocity
+    [Ecsact.DefaultSystemImpl(typeof(example.UpdateVerticalVelocity))]
+    public static void UpdateVerticalVelocity
         ( EcsactRuntime.SystemExecutionContext context
         )
     {
@@ -66,20 +36,22 @@ public class MoveSystems : MonoBehaviour {
         context.Update<example.Velocity>(velocity);
     }
 
-    internal static void UpdateHorizontalVelocity
+    [Ecsact.DefaultSystemImpl(typeof(example.UpdateHorizontalVelocity))]
+    public static void UpdateHorizontalVelocity
         ( EcsactRuntime.SystemExecutionContext context
         )
     {
         var moving = context.Get<example.HorizontalMoving>();
         var velocity = context.Get<example.Velocity>();
 
-        var force = moving.value * 0.1f;
+        var force = moving.value * velocity.force;
 
         velocity.x_value += force;
         context.Update<example.Velocity>(velocity);
     }
 
-    internal static void StartVerticalMove
+    [Ecsact.DefaultSystemImpl(typeof(example.StartVerticalMove))]
+    public static void StartVerticalMove
         ( EcsactRuntime.SystemExecutionContext context
         )
     {
@@ -90,14 +62,16 @@ public class MoveSystems : MonoBehaviour {
         });
     }
 
-    internal static void StopVerticalMove
+    [Ecsact.DefaultSystemImpl(typeof(example.StopVerticalMove))]
+    public static void StopVerticalMove
         ( EcsactRuntime.SystemExecutionContext context
         )
     {
         context.Remove<example.VerticalMoving>();
     }
 
-    internal static void StartHorizontalMove
+    [Ecsact.DefaultSystemImpl(typeof(example.StartHorizontalMove))]
+    public static void StartHorizontalMove
         ( EcsactRuntime.SystemExecutionContext context
         )
     {
@@ -108,7 +82,8 @@ public class MoveSystems : MonoBehaviour {
         });
     }
 
-    internal static void StopHorizontalMove
+    [Ecsact.DefaultSystemImpl(typeof(example.StopHorizontalMove))]
+    public static void StopHorizontalMove
         ( EcsactRuntime.SystemExecutionContext context
         )
     {

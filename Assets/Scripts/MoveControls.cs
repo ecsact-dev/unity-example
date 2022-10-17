@@ -2,15 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System;
 
-public class Move : MonoBehaviour
-{
-    Ecsact.DefaultFixedRunner runner;
-    EcsactRuntime rt;
-
-    int entityId;
-
+public class MoveControls : MonoBehaviour {
     public InputAction verticalMoveAction;
     public InputAction horizontalMoveAction;
 
@@ -30,43 +23,6 @@ public class Move : MonoBehaviour
         horizontalMoveAction.performed += OnHorizontalMove;
         verticalMoveAction.canceled += OnVerticalStop;
         horizontalMoveAction.canceled += OnHorizontalStop;
-
-        rt = Ecsact.Defaults.Runtime;
-
-        runner = FindObjectOfType<Ecsact.DefaultFixedRunner>();
-
-        entityId = rt.core.CreateEntity(runner.registryId);
-
-        rt.core.AddComponent<example.Position>(
-            runner.registryId,
-            entityId,
-            new example.Position{
-                x = 0,
-                y = 0
-            }
-        );
-
-        rt.core.AddComponent<example.Velocity>(
-            runner.registryId,
-            entityId,
-            new example.Velocity{
-                x_value = 0.0f,
-                y_value = 0.0f,
-                force = 0.1f
-            }
-        );
-
-        rt.core.AddComponent<example.Collider>(
-            runner.registryId,
-            entityId,
-            new example.Collider{}
-        );
-
-        rt.core.AddComponent<example.CanMove>(
-            runner.registryId,
-            entityId,
-            new example.CanMove{}
-        );
 
         startVerticalMoveAction = new example.StartVerticalMove{};
         stopVerticalMoveAction = new example.StopVerticalMove{};
@@ -110,6 +66,7 @@ public class Move : MonoBehaviour
         ( InputAction.CallbackContext context
         )
     {
+        Debug.Log("HorMove");
         var value = context.ReadValue<float>();
         startHorizontalMoveAction.x_change = value;
         Ecsact.Defaults.Runner.executeOptions.PushAction(
@@ -126,12 +83,4 @@ public class Move : MonoBehaviour
         );
     }
 
-    void FixedUpdate() {
-        var position = rt.core.GetComponent<example.Position>(
-            runner.registryId,
-            entityId
-        );
-
-        gameObject.transform.position = new Vector3(position.x, position.y, 0);
-    }
 }

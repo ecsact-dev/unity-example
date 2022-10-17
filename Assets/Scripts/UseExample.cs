@@ -12,7 +12,7 @@ public class UseExample : MonoBehaviour
     
     void Start() {
         // Create an instance of the Ecsact Runtime
-        runtime = EcsactRuntime.GetOrLoadDefault();
+        runtime = Ecsact.Defaults.Runtime;
 
         // Get the Default Registry
         runner = FindObjectOfType<Ecsact.DefaultFixedRunner>();
