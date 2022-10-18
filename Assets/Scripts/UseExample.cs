@@ -6,18 +6,15 @@ using UnityEngine;
 public class UseExample : MonoBehaviour
 {
     EcsactRuntime runtime;
-    Ecsact.DefaultFixedRunner runner;
     int entityId;
     System.Action action;
     
     void Start() {
         // Create an instance of the Ecsact Runtime
-        runtime = EcsactRuntime.GetOrLoadDefault();
+        runtime = Ecsact.Defaults.Runtime;
 
-        // Get the Default Registry
-        runner = FindObjectOfType<Ecsact.DefaultFixedRunner>();
         // Create an entity using the runner's registry id
-        entityId = runtime.core.CreateEntity(runner.registryId);
+        entityId = Ecsact.Defaults.Registry.CreateEntity();
 
         // Callback that's invoked on component update
         runtime.OnUpdateComponent<example.Example>((entity, Component) => {
@@ -37,20 +34,17 @@ public class UseExample : MonoBehaviour
         var removeComponent = new example.ToBeRemoved {};
 
         //Add component to your entity
-        runtime.core.AddComponent(
-            runner.registryId,
+        Ecsact.Defaults.Registry.AddComponent(
             entityId,
             exampleComponent
         );
 
-        runtime.core.AddComponent(
-            runner.registryId,
+        Ecsact.Defaults.Registry.AddComponent(
             entityId,
             removeComponent 
         );
 
-        var component = runtime.core.GetComponent<example.Example>(
-            runner.registryId,
+        var component = Ecsact.Defaults.Registry.GetComponent<example.Example>(
             entityId
         );
 
@@ -79,8 +73,7 @@ public class UseExample : MonoBehaviour
 
     void FixedUpdate() {
         // Get the component to log its value
-        var component = runtime.core.GetComponent<example.Example>(
-            runner.registryId,
+        var component = Ecsact.Defaults.Registry.GetComponent<example.Example>(
             entityId
         );
 

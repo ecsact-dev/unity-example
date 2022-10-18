@@ -5,14 +5,9 @@ using UnityEngine;
 public class StaticCollider : MonoBehaviour
 {
     int entityId;
-    EcsactRuntime rt;
-    Ecsact.DefaultFixedRunner runner;
 
     void Start() {
-        runner = FindObjectOfType<Ecsact.DefaultFixedRunner>();
-        rt = EcsactRuntime.GetOrLoadDefault();
-
-        entityId = rt.core.CreateEntity(runner.registryId);
+        entityId = Ecsact.Defaults.Registry.CreateEntity();
 
         var xScale = System.Convert.ToInt32(gameObject.transform.localScale.x);
         var yScale = System.Convert.ToInt32(gameObject.transform.localScale.y);
@@ -20,8 +15,7 @@ public class StaticCollider : MonoBehaviour
         var xPos = (int)gameObject.transform.position.x;
         var yPos = (int)gameObject.transform.position.y;
 
-        rt.core.AddComponent<example.Collider>(
-            runner.registryId,
+        Ecsact.Defaults.Registry.AddComponent<example.Collider>(
             entityId,
             new example.Collider{
                 x_radius = xScale,
@@ -29,8 +23,7 @@ public class StaticCollider : MonoBehaviour
             }
         );
 
-        rt.core.AddComponent<example.Position>(
-            runner.registryId,
+        Ecsact.Defaults.Registry.AddComponent<example.Position>(
             entityId,
             new example.Position{
                 x = xPos,

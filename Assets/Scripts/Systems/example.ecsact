@@ -3,35 +3,61 @@ main package example;
 //BASIC EXAMPLES
 
 component Example {
-	int32 example_value;
+	i32 example_value;
 }
 
-component ToBeRemoved{}
+component ToBeRemoved;
 
 system AddToExample {
-	required Example;
+	readwrite Example;
 	removes ToBeRemoved;
 }
-component CanMove {}
+component CanMove;
 
 // MOVE SYSTEMS
 
 component VerticalMoving {
-	decimal32 value;
+	f32 value;
 }
 
 component HorizontalMoving {
-	decimal32 value;
+	f32 value;
 }
 
 component Velocity {
-	decimal32 x_value;
-	decimal32 y_value;
-	decimal32 force;
+	f32 x_value;
+	f32 y_value;
+	f32 force;
 }
 
+component Position {
+	f32 x;
+	f32 y;
+	f32 prev_x;
+	f32 prev_y;
+}
+
+component Collider {
+	i32 x_radius;
+	i32 y_radius;
+}
+
+// GENERATOR
+component Block{}
+
+component BlockGenerator{
+	// Fake value added because of https://github.com/seaube/ecsact/issues/171
+	i32 fake_value;
+}
+
+component QueueBlock{
+	i32 pos_x;
+	i32 pos_y;
+}
+
+
 action StartVerticalMove {
-	decimal32 y_change;
+	f32 y_change;
 	include CanMove;
 	include Position;
 	adds VerticalMoving;
@@ -44,7 +70,7 @@ action StopVerticalMove {
 }
 
 action StartHorizontalMove {
-	decimal32 x_change;
+	f32 x_change;
 	include CanMove;
 	include Position;
 	adds HorizontalMoving;
@@ -56,70 +82,45 @@ action StopHorizontalMove {
 	removes HorizontalMoving;
 }
 
-component Position {
-	decimal32 x;
-	decimal32 y;
-	decimal32 prev_x;
-	decimal32 prev_y;
-}
-
 // BASIC COLLISION
-
-component Collider {
-	int32 x_radius;
-	int32 y_radius;
-}
 
 system UpdateVerticalVelocity {
 	include Position;
-	required Velocity;
-	required VerticalMoving;
+	readwrite Velocity;
+	readwrite VerticalMoving;
 }
 
 system UpdateHorizontalVelocity {
 	include Position;
-	required Velocity;
-	required HorizontalMoving;
+	readwrite Velocity;
+	readwrite HorizontalMoving;
 }
 
-system {
-	required readonly Position;
-	required readonly Collider;
+system CollisionComparer {
+	readonly Position;
+	readonly Collider;
 	system CheckCollision {
-		required Position;
-		required Velocity;
-		required Collider;
+		readwrite Position;
+		readwrite Velocity;
+		readwrite Collider;
 	}
 }
 
 system UpdatePosition {
-	required Position;
-	required Velocity;
-}
-
-// GENERATOR
-component Block{}
-
-component BlockGenerator{
-	// Fake value added because of https://github.com/seaube/ecsact/issues/171
-	int32 fake_value;
-}
-
-component QueueBlock{
-	int32 pos_x;
-	int32 pos_y;
+	readwrite Position;
+	readwrite Velocity;
 }
 
 action PerformGenerateBlock {
-	int32 pos_x;
-	int32 pos_y;
+	i32 pos_x;
+	i32 pos_y;
 	include BlockGenerator;
 	adds QueueBlock; 
 }
 
 system GenerateBlock {
-	required BlockGenerator;
-	required QueueBlock;
+	readwrite BlockGenerator;
+	readwrite QueueBlock;
 	generates {
 		required CanMove;
 		required Block;
@@ -129,6 +130,6 @@ system GenerateBlock {
 	}
 }
 
-system {
+system RemoveQueueBlock {
 	removes QueueBlock;
 }
