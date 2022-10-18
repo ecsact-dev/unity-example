@@ -13,8 +13,6 @@ public class MoveControls : MonoBehaviour {
     example.StartHorizontalMove startHorizontalMoveAction;
     example.StopHorizontalMove stopHorizontalMoveAction;
 
-    EcsactRuntime.ExecutionOptions executionOptions;
-
     void Start() {
         verticalMoveAction.Enable();
         horizontalMoveAction.Enable();
@@ -45,10 +43,9 @@ public class MoveControls : MonoBehaviour {
         )
     {
         var value = context.ReadValue<float>();
-        Debug.Log("VerticalMove");
 
         startVerticalMoveAction.y_change = value;
-        Ecsact.Defaults.Runner.executeOptions.PushAction(
+        Ecsact.Defaults.Runner.executionOptions.PushAction(
             startVerticalMoveAction
         );
     }
@@ -57,7 +54,7 @@ public class MoveControls : MonoBehaviour {
         ( InputAction.CallbackContext context
         )
     {
-        Ecsact.Defaults.Runner.executeOptions.PushAction(
+        Ecsact.Defaults.Runner.executionOptions.PushAction(
             stopVerticalMoveAction
         );
     }
@@ -66,10 +63,9 @@ public class MoveControls : MonoBehaviour {
         ( InputAction.CallbackContext context
         )
     {
-        Debug.Log("HorMove");
         var value = context.ReadValue<float>();
         startHorizontalMoveAction.x_change = value;
-        Ecsact.Defaults.Runner.executeOptions.PushAction(
+        Ecsact.Defaults.Runner.executionOptions.PushAction(
             startHorizontalMoveAction
         );
     }
@@ -78,7 +74,7 @@ public class MoveControls : MonoBehaviour {
         ( InputAction.CallbackContext context
         )
     {
-        Ecsact.Defaults.Runner.executeOptions.PushAction(
+        Ecsact.Defaults.Runner.executionOptions.PushAction(
             stopHorizontalMoveAction
         );
     }

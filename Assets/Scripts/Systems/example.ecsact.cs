@@ -309,14 +309,20 @@ public struct UpdateVerticalVelocity : global::Ecsact.System {
 public struct UpdateHorizontalVelocity : global::Ecsact.System {
 	public static readonly global::System.Int32 id = 18;
 }
-public struct CheckCollision : global::Ecsact.System {
-	public static readonly global::System.Int32 id = 20;
+public struct CollisionComparer : global::Ecsact.System {
+	public static readonly global::System.Int32 id = 19;
+	public struct CheckCollision : global::Ecsact.System {
+		public static readonly global::System.Int32 id = 20;
+	}
 }
 public struct UpdatePosition : global::Ecsact.System {
 	public static readonly global::System.Int32 id = 21;
 }
 public struct GenerateBlock : global::Ecsact.System {
 	public static readonly global::System.Int32 id = 23;
+}
+public struct RemoveQueueBlock : global::Ecsact.System {
+	public static readonly global::System.Int32 id = 25;
 }
 
 }

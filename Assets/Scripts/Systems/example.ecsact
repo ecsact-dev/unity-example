@@ -96,7 +96,7 @@ system UpdateHorizontalVelocity {
 	readwrite HorizontalMoving;
 }
 
-system {
+system CollisionComparer {
 	readonly Position;
 	readonly Collider;
 	system CheckCollision {
@@ -110,7 +110,6 @@ system UpdatePosition {
 	readwrite Position;
 	readwrite Velocity;
 }
-
 
 action PerformGenerateBlock {
 	i32 pos_x;
@@ -131,6 +130,6 @@ system GenerateBlock {
 	}
 }
 
-system {
+system RemoveQueueBlock {
 	removes QueueBlock;
 }

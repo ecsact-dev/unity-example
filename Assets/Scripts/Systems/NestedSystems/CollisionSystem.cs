@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CollisionSystem : MonoBehaviour {
 
-	[Ecsact.DefaultSystemImpl(typeof(example.CheckCollision))]
+	[Ecsact.DefaultSystemImpl(typeof(example.CollisionComparer.CheckCollision))]
 	public static void CheckCollision
 		( EcsactRuntime.SystemExecutionContext context
 		)

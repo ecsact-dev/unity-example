@@ -33,7 +33,7 @@ public class GenerateBlock : MonoBehaviour {
         generateBlockAction.pos_x = (int)worldPos.x;
         generateBlockAction.pos_y = (int)worldPos.y;
 
-        Ecsact.Defaults.Runner.executeOptions.PushAction(
+        Ecsact.Defaults.Runner.executionOptions.PushAction(
             generateBlockAction
         );
     }
