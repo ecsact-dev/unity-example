@@ -52,47 +52,11 @@ public struct CanMove : global::Ecsact.Component {
 	}
 }
 
-public struct VerticalMoving : global::Ecsact.Component {
-	public static readonly global::System.Int32 id = 5;
-	public global::System.Single value;
-
-	public override bool Equals(object? obj) {
-		if(obj == null) return false;
-		var other_ = (example.VerticalMoving)obj;
-		return true
-			&& other_.value.Equals(this.value);
-	}
-
-	public override int GetHashCode() {
-		int hashCode_ = 17;
-		hashCode_ = hashCode_ * 23 + value.GetHashCode();
-		return hashCode_;
-	}
-}
-
-public struct HorizontalMoving : global::Ecsact.Component {
-	public static readonly global::System.Int32 id = 6;
-	public global::System.Single value;
-
-	public override bool Equals(object? obj) {
-		if(obj == null) return false;
-		var other_ = (example.HorizontalMoving)obj;
-		return true
-			&& other_.value.Equals(this.value);
-	}
-
-	public override int GetHashCode() {
-		int hashCode_ = 17;
-		hashCode_ = hashCode_ * 23 + value.GetHashCode();
-		return hashCode_;
-	}
-}
-
 public struct Velocity : global::Ecsact.Component {
-	public static readonly global::System.Int32 id = 7;
+	public static readonly global::System.Int32 id = 5;
 	public global::System.Single x_value;
 	public global::System.Single y_value;
-	public global::System.Single force;
+	public global::System.Single speed;
 
 	public override bool Equals(object? obj) {
 		if(obj == null) return false;
@@ -100,20 +64,20 @@ public struct Velocity : global::Ecsact.Component {
 		return true
 			&& other_.x_value.Equals(this.x_value)
 			&& other_.y_value.Equals(this.y_value)
-			&& other_.force.Equals(this.force);
+			&& other_.speed.Equals(this.speed);
 	}
 
 	public override int GetHashCode() {
 		int hashCode_ = 17;
 		hashCode_ = hashCode_ * 23 + x_value.GetHashCode();
 		hashCode_ = hashCode_ * 23 + y_value.GetHashCode();
-		hashCode_ = hashCode_ * 23 + force.GetHashCode();
+		hashCode_ = hashCode_ * 23 + speed.GetHashCode();
 		return hashCode_;
 	}
 }
 
 public struct Position : global::Ecsact.Component {
-	public static readonly global::System.Int32 id = 8;
+	public static readonly global::System.Int32 id = 6;
 	public global::System.Single x;
 	public global::System.Single y;
 	public global::System.Single prev_x;
@@ -140,7 +104,7 @@ public struct Position : global::Ecsact.Component {
 }
 
 public struct Collider : global::Ecsact.Component {
-	public static readonly global::System.Int32 id = 9;
+	public static readonly global::System.Int32 id = 7;
 	public global::System.Int32 x_radius;
 	public global::System.Int32 y_radius;
 
@@ -161,7 +125,7 @@ public struct Collider : global::Ecsact.Component {
 }
 
 public struct Block : global::Ecsact.Component {
-	public static readonly global::System.Int32 id = 10;
+	public static readonly global::System.Int32 id = 8;
 
 	public override bool Equals(object? obj) {
 		if(obj == null) return false;
@@ -176,25 +140,22 @@ public struct Block : global::Ecsact.Component {
 }
 
 public struct BlockGenerator : global::Ecsact.Component {
-	public static readonly global::System.Int32 id = 11;
-	public global::System.Int32 fake_value;
+	public static readonly global::System.Int32 id = 9;
 
 	public override bool Equals(object? obj) {
 		if(obj == null) return false;
 		var other_ = (example.BlockGenerator)obj;
-		return true
-			&& other_.fake_value.Equals(this.fake_value);
+		return true;
 	}
 
 	public override int GetHashCode() {
 		int hashCode_ = 17;
-		hashCode_ = hashCode_ * 23 + fake_value.GetHashCode();
 		return hashCode_;
 	}
 }
 
 public struct QueueBlock : global::Ecsact.Component {
-	public static readonly global::System.Int32 id = 12;
+	public static readonly global::System.Int32 id = 14;
 	public global::System.Int32 pos_x;
 	public global::System.Int32 pos_y;
 
@@ -214,74 +175,29 @@ public struct QueueBlock : global::Ecsact.Component {
 	}
 }
 
-public struct StartVerticalMove : global::Ecsact.Action {
-	public static readonly global::System.Int32 id = 13;
-	public global::System.Single y_change;
+public struct Move : global::Ecsact.Action {
+	public static readonly global::System.Int32 id = 10;
+	public global::System.Single dir_x;
+	public global::System.Single dir_y;
 
 	public override bool Equals(object? obj) {
 		if(obj == null) return false;
-		var other_ = (example.StartVerticalMove)obj;
+		var other_ = (example.Move)obj;
 		return true
-			&& other_.y_change.Equals(this.y_change);
+			&& other_.dir_x.Equals(this.dir_x)
+			&& other_.dir_y.Equals(this.dir_y);
 	}
 
 	public override int GetHashCode() {
 		int hashCode_ = 17;
-		hashCode_ = hashCode_ * 23 + y_change.GetHashCode();
-		return hashCode_;
-	}
-}
-
-public struct StopVerticalMove : global::Ecsact.Action {
-	public static readonly global::System.Int32 id = 14;
-
-	public override bool Equals(object? obj) {
-		if(obj == null) return false;
-		var other_ = (example.StopVerticalMove)obj;
-		return true;
-	}
-
-	public override int GetHashCode() {
-		int hashCode_ = 17;
-		return hashCode_;
-	}
-}
-
-public struct StartHorizontalMove : global::Ecsact.Action {
-	public static readonly global::System.Int32 id = 15;
-	public global::System.Single x_change;
-
-	public override bool Equals(object? obj) {
-		if(obj == null) return false;
-		var other_ = (example.StartHorizontalMove)obj;
-		return true
-			&& other_.x_change.Equals(this.x_change);
-	}
-
-	public override int GetHashCode() {
-		int hashCode_ = 17;
-		hashCode_ = hashCode_ * 23 + x_change.GetHashCode();
-		return hashCode_;
-	}
-}
-
-public struct StopHorizontalMove : global::Ecsact.Action {
-	public static readonly global::System.Int32 id = 16;
-
-	public override bool Equals(object? obj) {
-		if(obj == null) return false;
-		var other_ = (example.StopHorizontalMove)obj;
-		return true;
-	}
-
-	public override int GetHashCode() {
-		int hashCode_ = 17;
+		hashCode_ = hashCode_ * 23 + dir_x.GetHashCode();
+		hashCode_ = hashCode_ * 23 + dir_y.GetHashCode();
 		return hashCode_;
 	}
 }
 
 public struct PerformGenerateBlock : global::Ecsact.Action {
-	public static readonly global::System.Int32 id = 22;
+	public static readonly global::System.Int32 id = 15;
 	public global::System.Int32 pos_x;
 	public global::System.Int32 pos_y;
 
@@ -303,26 +219,20 @@ public struct PerformGenerateBlock : global::Ecsact.Action {
 public struct AddToExample : global::Ecsact.System {
 	public static readonly global::System.Int32 id = 3;
 }
-public struct UpdateVerticalVelocity : global::Ecsact.System {
-	public static readonly global::System.Int32 id = 17;
-}
-public struct UpdateHorizontalVelocity : global::Ecsact.System {
-	public static readonly global::System.Int32 id = 18;
-}
 public struct CollisionComparer : global::Ecsact.System {
-	public static readonly global::System.Int32 id = 19;
+	public static readonly global::System.Int32 id = 11;
 	public struct CheckCollision : global::Ecsact.System {
-		public static readonly global::System.Int32 id = 20;
+		public static readonly global::System.Int32 id = 12;
 	}
 }
-public struct UpdatePosition : global::Ecsact.System {
-	public static readonly global::System.Int32 id = 21;
+public struct ApplyVelocity : global::Ecsact.System {
+	public static readonly global::System.Int32 id = 13;
 }
 public struct GenerateBlock : global::Ecsact.System {
-	public static readonly global::System.Int32 id = 23;
+	public static readonly global::System.Int32 id = 16;
 }
 public struct RemoveQueueBlock : global::Ecsact.System {
-	public static readonly global::System.Int32 id = 25;
+	public static readonly global::System.Int32 id = 18;
 }
 
 }

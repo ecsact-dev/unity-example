@@ -1,6 +1,6 @@
 main package example;
 
-//BASIC EXAMPLES
+//BASIC EXAMPLE
 
 component Example {
 	i32 example_value;
@@ -12,22 +12,15 @@ system AddToExample {
 	readwrite Example;
 	removes ToBeRemoved;
 }
-component CanMove;
 
 // MOVE SYSTEMS
 
-component VerticalMoving {
-	f32 value;
-}
-
-component HorizontalMoving {
-	f32 value;
-}
+component CanMove;
 
 component Velocity {
 	f32 x_value;
 	f32 y_value;
-	f32 force;
+	f32 speed;
 }
 
 component Position {
@@ -45,56 +38,16 @@ component Collider {
 // GENERATOR
 component Block{}
 
-component BlockGenerator{
-	// Fake value added because of https://github.com/seaube/ecsact/issues/171
-	i32 fake_value;
-}
+component BlockGenerator;
 
-component QueueBlock{
-	i32 pos_x;
-	i32 pos_y;
-}
-
-
-action StartVerticalMove {
-	f32 y_change;
+action Move {
+	f32 dir_x;
+	f32 dir_y;
 	include CanMove;
-	include Position;
-	adds VerticalMoving;
-}
-
-action StopVerticalMove {
-	include CanMove;
-	include Position;
-	removes VerticalMoving;
-}
-
-action StartHorizontalMove {
-	f32 x_change;
-	include CanMove;
-	include Position;
-	adds HorizontalMoving;
-}
-
-action StopHorizontalMove {
-	include CanMove;
-	include Position;
-	removes HorizontalMoving;
+	readwrite Velocity;
 }
 
 // BASIC COLLISION
-
-system UpdateVerticalVelocity {
-	include Position;
-	readwrite Velocity;
-	readwrite VerticalMoving;
-}
-
-system UpdateHorizontalVelocity {
-	include Position;
-	readwrite Velocity;
-	readwrite HorizontalMoving;
-}
 
 system CollisionComparer {
 	readonly Position;
@@ -106,9 +59,14 @@ system CollisionComparer {
 	}
 }
 
-system UpdatePosition {
+system ApplyVelocity {
 	readwrite Position;
 	readwrite Velocity;
+}
+
+component QueueBlock {
+	i32 pos_x;
+	i32 pos_y;
 }
 
 action PerformGenerateBlock {
@@ -119,7 +77,7 @@ action PerformGenerateBlock {
 }
 
 system GenerateBlock {
-	readwrite BlockGenerator;
+	include BlockGenerator;
 	readwrite QueueBlock;
 	generates {
 		required CanMove;

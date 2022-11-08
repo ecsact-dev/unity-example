@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7b9118f08c8df64eadceb6e7c52dd8c, type: 3}
   m_Name: EcsactSettings
   m_EditorClassIdentifier: 
-  parseInfoCodegenPluginPath: 
-  csharpCodegenPluginPath: 
   runtimeBuilderOutputPath: Assets/Plugins/EcsactRuntime
+  runtimeBuilderDebugBuild: 0
+  runtimeBuilderPrintSubcommandStdout: 0
+  runtimeBuilderPrintSubcommandStderr: 0
   runtimeBuilderCompilerPath: 

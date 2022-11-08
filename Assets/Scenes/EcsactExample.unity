@@ -1074,70 +1074,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33868f2cd5001ca418fb1ecfcdff933e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  verticalMoveAction:
-    m_Name: Vertical Move
+  moveInput:
+    m_Name: Move Input
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 47a0db92-b1f3-44df-bb8a-bb68cbe8e2ba
+    m_Id: ff608477-0873-42ec-859b-53b881cc8b51
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
-    - m_Name: 1D Axis
-      m_Id: 16e46dc7-ca22-4673-96e5-a713a9cdb0b8
-      m_Path: 1DAxis
+    - m_Name: 2D Vector
+      m_Id: f4dce00a-1931-41b0-898f-d4f8b3432f3e
+      m_Path: 2DVector
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Vertical Move
+      m_Action: Move Input
       m_Flags: 4
-    - m_Name: negative
-      m_Id: b7edfbd8-eca1-4469-acc5-9afddf68a94c
-      m_Path: <Keyboard>/downArrow
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Vertical Move
-      m_Flags: 8
-    - m_Name: positive
-      m_Id: f1f046cd-7540-4f6b-8d80-315410a6eec3
+    - m_Name: up
+      m_Id: 43f7e4ea-0ef7-492f-a384-8386e63249a1
       m_Path: <Keyboard>/upArrow
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Vertical Move
+      m_Action: Move Input
       m_Flags: 8
-    m_Flags: 0
-  horizontalMoveAction:
-    m_Name: Horizontal Move
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 97e6cb4f-7ab2-4588-9793-16ca0c6bf83c
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 1D Axis
-      m_Id: 035d6097-7f3a-4f1d-830e-cac2162339bc
-      m_Path: 1DAxis
+    - m_Name: down
+      m_Id: c50386b8-c837-4c63-a25c-8ba28810dfca
+      m_Path: <Keyboard>/downArrow
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Horizontal Move
-      m_Flags: 4
-    - m_Name: negative
-      m_Id: 5b5a3f68-abb6-429e-a4df-c7ca425f7ae0
+      m_Action: Move Input
+      m_Flags: 8
+    - m_Name: left
+      m_Id: de4d5f0e-b7f7-4d3c-ab59-abb2608b7ca5
       m_Path: <Keyboard>/leftArrow
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Horizontal Move
+      m_Action: Move Input
       m_Flags: 8
-    - m_Name: positive
-      m_Id: 5e0787cd-3c23-444d-a502-218eb8d90ed4
+    - m_Name: right
+      m_Id: 4adbe73e-46e0-4414-8ed6-6d16ab5c1ac0
       m_Path: <Keyboard>/rightArrow
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Horizontal Move
+      m_Action: Move Input
       m_Flags: 8
     m_Flags: 0
 --- !u!114 &2010208571
@@ -1159,22 +1142,22 @@ MonoBehaviour:
     otherEntities: []
     _dataJson: '{}'
   - _ecsactComponentNameEditorOnly: example.Position
-    id: 8
+    id: 6
     entityFieldNames: []
     otherEntities: []
     _dataJson: '{"x":0.0,"y":0.0,"prev_x":0.0,"prev_y":0.0}'
   - _ecsactComponentNameEditorOnly: example.Velocity
-    id: 7
+    id: 5
     entityFieldNames: []
     otherEntities: []
-    _dataJson: '{"x_value":0.0,"y_value":0.0,"force":0.10000000149011612}'
+    _dataJson: '{"x_value":0.0,"y_value":0.0,"speed":10000.0}'
   - _ecsactComponentNameEditorOnly: example.Block
-    id: 10
+    id: 8
     entityFieldNames: []
     otherEntities: []
     _dataJson: '{}'
   - _ecsactComponentNameEditorOnly: example.Collider
-    id: 9
+    id: 7
     entityFieldNames: []
     otherEntities: []
     _dataJson: '{"x_radius":4,"y_radius":4}'
