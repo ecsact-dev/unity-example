@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: EcsactRuntimeSettings
   m_EditorClassIdentifier: 
   useVisualScriptingEvents: 1
+  runner: 1
+  tickRate: 32
   defaultRegistry:
     registryName: Default Registry
-    runner: 2
+    updateMethod: 1
   enableUnitySync: 1
   unitySyncScripts:
   - scriptEnabled: 1

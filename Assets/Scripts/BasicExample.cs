@@ -7,17 +7,28 @@ public class BasicExample : MonoBehaviour {
 
 	List<System.Action> cleanUpFns = new();
 	
+	int entityId;
+
 	void Start() {
-		int entityId = Ecsact.Defaults.Registry.CreateEntity();
 		
 		cleanUpFns.AddRange(new[] {
+			// NOTE: Finish this to show more use cases for tutorial
+			Ecsact.Defaults.Runtime.OnInitComponent<example.Example>((entity, component) => {
+				
+			}),
 			// Callback that's invoked on the removal of a component
 			Ecsact.Defaults.Runtime.OnRemoveComponent<example.ToBeRemoved>((entity, component) => {
 				Debug.Log("Example component removed");
 			}),
-			// Callback that's invoked on the removal of a component
 			Ecsact.Defaults.Runtime.OnUpdateComponent<example.Example>((entity, component) => {
 				Debug.Log(component.example_value);
+			}),
+			Ecsact.Defaults.Runtime.OnRemoveComponent<example.Example>((entity, component) => {
+				Debug.Log("Component removed");
+				Debug.Log(component.example_value);
+			}),
+			Ecsact.Defaults.Runtime.OnEntityCreated((entityId, placeholderId) => {
+				UnityEngine.Debug.Log("Entity created");
 			})
 		});
 
@@ -29,16 +40,14 @@ public class BasicExample : MonoBehaviour {
 		// Declare a ToBeRemoved component type
 		var removeComponent = new example.ToBeRemoved {};
 
-		//Add components to your entity
-		Ecsact.Defaults.Registry.AddComponent(
-			entityId,
-			exampleComponent
-		);
-
-		Ecsact.Defaults.Registry.AddComponent(
-			entityId,
-			removeComponent 
-		);
+		// Create an entity and add inital components
+		Ecsact.Defaults.Runner.executionOptions
+			.CreateEntity((id) => {
+				Debug.Log("Entity created");
+				entityId = id;
+			})
+			.AddComponent(exampleComponent)
+			.AddComponent(removeComponent);
 	}
 
 	void OnDestroy() {

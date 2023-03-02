@@ -8,20 +8,16 @@ public class AddExample : MonoBehaviour
 	int entityId;
 
 	void Start() {
-
-		// Gets the ID of the entity created by the Registry
-		entityId = Ecsact.Defaults.Registry.CreateEntity();
 		
 		// Create a Example component from our .ecsact file
 		var exampleComponent = new example.Example {
 			example_value = 5,
 		};
 
-		// Add the declared example component to your entity 
-		Ecsact.Defaults.Registry.AddComponent(
-			entityId,
-			exampleComponent
-		);
+		// Gets the ID of the entity created by the Registry
+		Ecsact.Defaults.Runner.executionOptions
+			.CreateEntity()
+			.AddComponent(exampleComponent);
 		
 		// Check component callback to get feedback
 		Ecsact.Defaults.Runtime.OnInitComponent<example.Example>(

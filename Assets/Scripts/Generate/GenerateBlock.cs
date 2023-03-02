@@ -11,12 +11,9 @@ public class GenerateBlock : MonoBehaviour {
 		mouseAction.Enable();
 		mouseAction.performed += OnMouseClick;
 
-		entityId = Ecsact.Defaults.Registry.CreateEntity();
-
-		Ecsact.Defaults.Registry.AddComponent<example.BlockGenerator>(
-			entityId,
-			new example.BlockGenerator {}
-		);
+		Ecsact.Defaults.Runner.executionOptions
+			.CreateEntity()
+			.AddComponent(new example.BlockGenerator {});
 	}
 
 	public void OnMouseClick
