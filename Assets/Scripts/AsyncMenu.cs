@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,7 +29,6 @@ public class AsyncMenu : MonoBehaviour {
 
         Debug.Log("Loading with time(ms): " + millisecondTime);
 
-        Ecsact.Defaults.Runtime.async.Connect("good?tick_rate="+millisecondTime);
+        Ecsact.Defaults.Runtime.async.Connect("good?delta_time="+millisecondTime);
     }
-
 }

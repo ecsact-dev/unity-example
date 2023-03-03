@@ -12,9 +12,7 @@ public class StaticCollider : MonoBehaviour {
 		var yPos = (int)gameObject.transform.position.y;
 
 		Ecsact.Defaults.Runner.executionOptions
-			.CreateEntity((entityId) => {
-				Debug.Log("Static collider created");
-			})
+			.CreateEntity()
 			.AddComponent(new example.Collider{
 				x_radius = xScale,
 				y_radius = yScale

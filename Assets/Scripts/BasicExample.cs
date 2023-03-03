@@ -14,12 +14,10 @@ public class BasicExample : MonoBehaviour {
 		cleanUpFns.AddRange(new[] {
 			// NOTE: Finish this to show more use cases for tutorial
 			Ecsact.Defaults.Runtime.OnInitComponent<example.Example>((entity, component) => {
-				
+				Debug.Log("Example component added");
+				Debug.Log(component.example_value);
 			}),
 			// Callback that's invoked on the removal of a component
-			Ecsact.Defaults.Runtime.OnRemoveComponent<example.ToBeRemoved>((entity, component) => {
-				Debug.Log("Example component removed");
-			}),
 			Ecsact.Defaults.Runtime.OnUpdateComponent<example.Example>((entity, component) => {
 				Debug.Log(component.example_value);
 			}),
@@ -28,7 +26,7 @@ public class BasicExample : MonoBehaviour {
 				Debug.Log(component.example_value);
 			}),
 			Ecsact.Defaults.Runtime.OnEntityCreated((entityId, placeholderId) => {
-				UnityEngine.Debug.Log("Entity created");
+				Debug.Log("Entity created");
 			})
 		});
 
