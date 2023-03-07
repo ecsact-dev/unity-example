@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EcsactRuntimeSettings
   m_EditorClassIdentifier: 
   useVisualScriptingEvents: 1
-  runner: 0
+  runner: 1
   deltaTime: 32
   defaultRegistry:
     registryName: Default Registry

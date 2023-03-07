@@ -12,19 +12,20 @@ public class BasicExample : MonoBehaviour {
 	void Start() {
 		
 		cleanUpFns.AddRange(new[] {
-			// NOTE: Finish this to show more use cases for tutorial
+			// Callback that's invoked upon adding a component
 			Ecsact.Defaults.Runtime.OnInitComponent<example.Example>((entity, component) => {
 				Debug.Log("Example component added");
 				Debug.Log(component.example_value);
 			}),
-			// Callback that's invoked on the removal of a component
+			// Callback that's invoked on the update of a component
 			Ecsact.Defaults.Runtime.OnUpdateComponent<example.Example>((entity, component) => {
 				Debug.Log(component.example_value);
 			}),
-			Ecsact.Defaults.Runtime.OnRemoveComponent<example.Example>((entity, component) => {
+			// Callback that's invoked on the removal of a component
+			Ecsact.Defaults.Runtime.OnRemoveComponent<example.ToBeRemoved>((entity, component) => {
 				Debug.Log("Component removed");
-				Debug.Log(component.example_value);
 			}),
+			// Callback that's invoked when an entity is created
 			Ecsact.Defaults.Runtime.OnEntityCreated((entityId, placeholderId) => {
 				Debug.Log("Entity created");
 			})
@@ -40,10 +41,7 @@ public class BasicExample : MonoBehaviour {
 
 		// Create an entity and add inital components
 		Ecsact.Defaults.Runner.executionOptions
-			.CreateEntity((id) => {
-				Debug.Log("Entity created");
-				entityId = id;
-			})
+			.CreateEntity()
 			.AddComponent(exampleComponent)
 			.AddComponent(removeComponent);
 	}
