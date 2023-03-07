@@ -12,7 +12,7 @@ public class BasicExampleSystem : MonoBehaviour {
 		// Get a component from the context
 		var value = context.Get<example.Example>();
 		
-		//Modify and update its value
+		// Modify and update its value
 		value.example_value +=1;
 		context.Update<example.Example>(value);
 
