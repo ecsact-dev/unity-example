@@ -26,7 +26,7 @@ MonoBehaviour:
   - scriptEnabled: 1
     scriptAssemblyQualifiedName: SyncMove, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  systemImplSource: 0
+  systemImplSource: 1
   defaultCsharpSystemImplsAssemblyName: ExampleAssembly
   runtimeLibraryPaths:
   - Assets/Plugins/EcsactRuntime

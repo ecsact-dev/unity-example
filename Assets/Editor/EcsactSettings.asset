@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: EcsactSettings
   m_EditorClassIdentifier: 
   runtimeBuilderOutputPath: Assets/Plugins/EcsactRuntime
+  runtimeBuilderTempDirectory: RTBTemp
   runtimeBuilderDebugBuild: 1
   runtimeBuilderPrintSubcommandStdout: 1
   runtimeBuilderPrintSubcommandStderr: 1

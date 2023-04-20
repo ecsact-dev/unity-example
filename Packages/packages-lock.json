@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.seaube.unity-wasm": {
+      "version": "https://github.com/seaube/unity-wasm.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "38ebddd90e653bf3cc3cf03aac2a569f059e935d"
+    },
     "com.unity.2d.animation": {
       "version": "7.0.7",
       "depth": 1,
@@ -279,14 +286,13 @@
       "url": "https://packages.unity.com"
     },
     "dev.ecsact.unity": {
-      "version": "https://github.com/ecsact-dev/ecsact_unity.git",
+      "version": "file:C:/programming/ecsact-unity",
       "depth": 0,
-      "source": "git",
+      "source": "local",
       "dependencies": {
         "com.unity.editorcoroutines": "1.0.0",
         "com.unity.visualscripting": "1.7.8"
-      },
-      "hash": "bf5e4211504bcfcdc29c42ad94e28835c3c6863d"
+      }
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
