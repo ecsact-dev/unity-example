@@ -1,6 +1,3 @@
 # Ecsact Unity Examples
 
-Source code for Ecsact Unity tutorials on <https://ecsact.dev>
-
-* [BasicExample](https://ecsact.dev/start/tutorials/unity/basic-example)
-* [Moving Block](https://ecsact.dev/start/tutorials/unity/moving-block)
+This repo has been deprecated, you can access it through [ecsact_examples](https://github.com/ecsact-dev/ecsact-examples)
